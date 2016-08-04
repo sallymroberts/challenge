@@ -1,12 +1,15 @@
 def build_usage
+  students = {}
   File.open("usage.csv").each do |line|
-    students = {}
-    # if line[0] != 's'
-    #   line = line.split(",")
-    #   question = line
-    #   students[line[0]] = {[line[1]]: [line[3], line[4]]}
-    # end
+    if line[0] != 's'
+      line = line.split(",")
+      if !students.has_key?(line[0])
+        students[line[0]] = {}
+      end
+      students[line[0]][line[1]] = [line[3], line[4]]
+    end
   end
+  puts students
 end
 
 def build_questions
@@ -14,14 +17,14 @@ def build_questions
   standards = {}
   save_strands = nil
   File.open("questions.csv").each do |line|
-  #   if line[0] != 's'
-  #     line = line.split(",")
+    if line[0] != 's'
+      line = line.split(",")
   #     if [line[0]] != save_strands
   #       strands[line[0]] = line[1]
   #       standards = {}
   #     end
   #     standards[line[0]][line[2]] = line[5]
-  #   end
+    end
   end
   # puts strands
   # puts standards
@@ -33,7 +36,7 @@ def get_questions(student_id)
 end
 
 # After build_usage and build_questions are working, uncomment these lines:
-#   build_usage
+  build_usage
 #   build_questions
 
 bad_id = true
